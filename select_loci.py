@@ -1,7 +1,6 @@
 import random
 import csv
 import os
-from Bio.Nexus import Nexus
 
 random.seed(2023)
 
@@ -24,6 +23,9 @@ set_t50_2 = random.sample(taxa_list, 40)
 
 set_t25_1 = random.sample(list(set(taxa_list) - set(set_t50_1)), 25)
 set_t25_2 = random.sample(list(set(taxa_list) - set(set_t50_2)), 25)
+
+set_l1_1 = random.sample(set_l2_1, 100)
+set_l1_2 = random.sample(set_l2_2, 100)
 
 
 with open('charset.csv', 'r') as charsets:
@@ -61,25 +63,25 @@ set_t25_2_list = []
 for i in set_t25_2:
     set_t25_2_list.append(taxa_name[i])
 
-#with open('alignment_t50_1.nex', 'w') as aln:
-#    for line in lines:
-#        if not any(s in line for s in set_t50_1_list):
-#                aln.write(line)
+with open('alignment_t50_1.nex', 'w') as aln:
+    for line in lines:
+        if not any(s in line for s in set_t50_1_list):
+               aln.write(line)
 
-#with open('alignment_t50_2.nex', 'w') as aln:
-#    for line in lines:
-#        if not any(s in line for s in set_t50_2_list):
-#                aln.write(line)
+with open('alignment_t50_2.nex', 'w') as aln:
+    for line in lines:
+        if not any(s in line for s in set_t50_2_list):
+                aln.write(line)
 
-#with open('alignment_t25_1.nex', 'w') as aln:
-#    for line in lines:
-#        if not any(s in line for s in set_t25_1_list) and not any(s in line for s in set_t50_1_list):
-#                aln.write(line)
+with open('alignment_t25_1.nex', 'w') as aln:
+    for line in lines:
+        if not any(s in line for s in set_t25_1_list) and not any(s in line for s in set_t50_1_list):
+                aln.write(line)
 
-#with open('alignment_t25_2.nex', 'w') as aln:
-#    for line in lines:
-#        if not any(s in line for s in set_t25_2_list) and not any(s in line for s in set_t50_2_list):
-#                aln.write(line)
+with open('alignment_t25_2.nex', 'w') as aln:
+    for line in lines:
+        if not any(s in line for s in set_t25_2_list) and not any(s in line for s in set_t50_2_list):
+                aln.write(line)
 
 with open('l10_1.txt', 'w') as loci:
     for i in set1:
@@ -215,10 +217,49 @@ os.rename('partitions.txt', 'l2t25_2_par.txt')
 os.system('rm *out.nex')
 
 
+with open('l1_1.txt', 'w') as loci:
+    for i in set_l1_1:
+        loci.write(names[i] + ' = ' + starts[i] + '-' + ends[i] + '\n')
 
+os.system('python3 AMAS.py split -f nexus -d dna -i alignment.nex -l l1_1.txt -u nexus')
+os.system('python3 AMAS.py concat -f nexus -d dna -i *out.nex')
+os.rename('concatenated.out', 'l1t90_1.nex')
+os.rename('partitions.txt', 'l1t90_1_par.txt')
+os.system('rm *out.nex')
 
+os.system('python3 AMAS.py split -f nexus -d dna -i alignment_t50_1.nex -l l1_1.txt -u nexus')
+os.system('python3 AMAS.py concat -f nexus -d dna -i *out.nex')
+os.rename('concatenated.out', 'l1t50_1.nex')
+os.rename('partitions.txt', 'l1t50_1_par.txt')
+os.system('rm *out.nex')
 
+os.system('python3 AMAS.py split -f nexus -d dna -i alignment_t25_1.nex -l l1_1.txt -u nexus')
+os.system('python3 AMAS.py concat -f nexus -d dna -i *out.nex')
+os.rename('concatenated.out', 'l1t25_1.nex')
+os.rename('partitions.txt', 'l1t25_1_par.txt')
+os.system('rm *out.nex')
 
+with open('l1_2.txt', 'w') as loci:
+    for i in set_l1_2:
+        loci.write(names[i] + ' = ' + starts[i] + '-' + ends[i] + '\n')
+  
+os.system('python3 AMAS.py split -f nexus -d dna -i alignment.nex -l l1_2.txt -u nexus')
+os.system('python3 AMAS.py concat -f nexus -d dna -i *out.nex')
+os.rename('concatenated.out', 'l1t90_2.nex')
+os.rename('partitions.txt', 'l1t90_2_par.txt')
+os.system('rm *out.nex')
+
+os.system('python3 AMAS.py split -f nexus -d dna -i alignment_t50_2.nex -l l1_2.txt -u nexus')
+os.system('python3 AMAS.py concat -f nexus -d dna -i *out.nex')
+os.rename('concatenated.out', 'l1t50_2.nex')
+os.rename('partitions.txt', 'l1t50_2_par.txt')
+os.system('rm *out.nex')
+
+os.system('python3 AMAS.py split -f nexus -d dna -i alignment_t25_2.nex -l l1_2.txt -u nexus')
+os.system('python3 AMAS.py concat -f nexus -d dna -i *out.nex')
+os.rename('concatenated.out', 'l1t25_2.nex')
+os.rename('partitions.txt', 'l1t25_2_par.txt')
+os.system('rm *out.nex')
 
 
 
