@@ -50,6 +50,11 @@ l5t90_1 <- c(0.2447,0.03478,0.1654,0.1657,0.1128,0.4513,0.1237,0.8197,0.1345,1.2
 l5t90_2 <- c(0.2551,0.03314,0.1677,0.1549,0.111,0.4474,0.122,0.819,0.1294,1.29,0.1441,2.165,0.05749,4.081,0.01326,7.732)
 l2t90_1 <- c(0.2796,0.04126,0.1727,0.246,0.1407,0.6401,0.1681,1.124,0.1643,2.021,0.06118,3.853,0.01335,7.43)
 l2t90_2 <- c(0.08979,0,0.3066,0.09546,0.1231,0.4005,0.2069,0.898,0.1909,1.905,0.06766,3.836, 0.01511,7.436)
+
+l10t50_1 <- c(0.3473,0.05019,0.2208,0.4353,0.2806,1.301,0.1302,2.906,0.02099,6.81)
+l10t50_2 <- c(0.1574,0.01266,0.1534,0.05629,0.2185,0.2553,0.1684,0.8149,0.1924,1.676,0.09049,3.625,0.01948,7.499)
+l10t25_1 <- c(0.2226,0.01891,0.1555,0.1318,0.1345,0.4577,0.1442,0.7699,0.1433,1.339,0.1583,2.334,0.04168,5.793)
+l10t25_2 <- c(0.3052,0,0.134,0.2131,0.1389,0.4595,0.1365,0.7769,0.1254,1.499,0.1286,3.03,0.03145,7.117)
 ```
 
 ```{r}
@@ -59,6 +64,11 @@ l5t90_1 <- compute_cdf(l5t90_1)
 l5t90_2 <- compute_cdf(l5t90_2)
 l2t90_1 <- compute_cdf(l2t90_1)
 l2t90_2 <- compute_cdf(l2t90_2)
+
+l10t50_1 <- compute_cdf(l10t50_1)
+l10t50_2 <- compute_cdf(l10t50_2)
+l10t25_1 <- compute_cdf(l10t25_1)
+l10t25_2 <- compute_cdf(l10t25_2)
 ```
 
 
@@ -66,27 +76,16 @@ l2t90_2 <- compute_cdf(l2t90_2)
 ggplot(result, aes(x = weights, y = rates)) +
   geom_step(direction = "vh",linewidth = 0.7) +
   geom_step(data = l10t90_2, direction = "vh",linewidth = 0.7, color = 'red') +
-  geom_step(data = l5t90_1, direction = "vh",linewidth = 0.7, color = 'blue') +
-  geom_step(data = l5t90_2, direction = "vh",linewidth = 0.7, color = 'orange') +
-  geom_step(data = l2t90_1, direction = "vh",linewidth = 0.7, color = 'yellow') +
-  geom_step(data = l2t90_2, direction = "vh",linewidth = 0.7, color = 'green') +
+  geom_step(data = l10t50_1, direction = "vh",linewidth = 0.7, color = 'blue') +
+  geom_step(data = l10t50_2, direction = "vh",linewidth = 0.7, color = 'orange') +
+  geom_step(data = l10t25_1, direction = "vh",linewidth = 0.7, color = 'yellow') +
+  geom_step(data = l10t25_2, direction = "vh",linewidth = 0.7, color = 'green') +
   coord_cartesian(xlim = c(0, 1)) +
   labs(title = "Cumulative Plot", x = "Weights", y = "Rates") +
   theme_minimal()
 ```
 
-```{r}
-# Add an initial data point to 'result' dataframe
-result <- rbind(data.frame(weights = 0, rates = min(result$rates)), result)
 
-# Plot
-ggplot(result, aes(x = weights, y = rates)) +
-  geom_step(direction = "vh", linewidth = 1) +
-  coord_cartesian(xlim = c(0, 1)) +
-  labs(title = "Cumulative Plot", x = "Weights", y = "Rates") +
-  theme_minimal()
-
-```
 
 
 
