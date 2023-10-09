@@ -1,8 +1,5 @@
-import numpy as np
 from ete3 import Tree
 import csv
-
-
 
 with open(r'C:\Users\u7151703\Desktop\research\RFmixture\taxa_list.csv', 'r') as charsets:
     reader = csv.reader(charsets)
