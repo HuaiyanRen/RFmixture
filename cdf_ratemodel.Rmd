@@ -50,20 +50,43 @@ l5t90_1 <- c(0.2447,0.03478,0.1654,0.1657,0.1128,0.4513,0.1237,0.8197,0.1345,1.2
 l5t90_2 <- c(0.2551,0.03314,0.1677,0.1549,0.111,0.4474,0.122,0.819,0.1294,1.29,0.1441,2.165,0.05749,4.081,0.01326,7.732)
 l2t90_1 <- c(0.2796,0.04126,0.1727,0.246,0.1407,0.6401,0.1681,1.124,0.1643,2.021,0.06118,3.853,0.01335,7.43)
 l2t90_2 <- c(0.08979,0,0.3066,0.09546,0.1231,0.4005,0.2069,0.898,0.1909,1.905,0.06766,3.836, 0.01511,7.436)
+l1t90_1 <- c(0.3233,0.04917,0.204,0.3415,0.228,0.9771,0.1726,2.039,0.05916,4.025,0.01305,7.798)
+l1t90_2 <- c(0.1088,0,0.3355,0.1239,0.2403,0.7161,0.2213,1.75,0.07795,3.602,0.01613,7.344)
 
-l10t50_1 <- c(0.3473,0.05019,0.2208,0.4353,0.2806,1.301,0.1302,2.906,0.02099,6.81)
-l10t50_2 <- c(0.1574,0.01266,0.1534,0.05629,0.2185,0.2553,0.1684,0.8149,0.1924,1.676,0.09049,3.625,0.01948,7.499)
-l10t25_1 <- c(0.2226,0.01891,0.1555,0.1318,0.1345,0.4577,0.1442,0.7699,0.1433,1.339,0.1583,2.334,0.04168,5.793)
-l10t25_2 <- c(0.3052,0,0.134,0.2131,0.1389,0.4595,0.1365,0.7769,0.1254,1.499,0.1286,3.03,0.03145,7.117)
-```
-
-```{r}
 l10t90_1 <- compute_cdf(l10t90_1)
 l10t90_2 <- compute_cdf(l10t90_2)
 l5t90_1 <- compute_cdf(l5t90_1)
 l5t90_2 <- compute_cdf(l5t90_2)
 l2t90_1 <- compute_cdf(l2t90_1)
 l2t90_2 <- compute_cdf(l2t90_2)
+l1t90_1 <- compute_cdf(l1t90_1)
+l1t90_2 <- compute_cdf(l1t90_2)
+
+```
+
+
+```{r}
+ggplot(l10t90_1, aes(x = weights, y = rates)) +
+  geom_step(data = l10t90_1, direction = "vh",linewidth = 0.7, color = 'red') +
+  geom_step(data = l10t90_2, direction = "vh",linewidth = 0.7, color = 'red') +
+  geom_step(data = l5t90_1, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l5t90_2, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l2t90_1, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l2t90_2, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l1t90_1, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l1t90_2, direction = "vh",linewidth = 0.7, color = 'black') +
+  coord_cartesian(xlim = c(0, 1)) +
+  labs(x = "Weights", y = "Rates") +
+  theme_minimal()+
+  annotate("text", x = 0, y = 7, label = "1k loci, 90 taxa", color = "red", hjust = 0) +
+  annotate("text", x = 0, y = 6, label = "500/200/100 loci, 90 taxa", color = "black", hjust = 0)
+```
+
+```{r}
+l10t50_1 <- c(0.3473,0.05019,0.2208,0.4353,0.2806,1.301,0.1302,2.906,0.02099,6.81)
+l10t50_2 <- c(0.1574,0.01266,0.1534,0.05629,0.2185,0.2553,0.1684,0.8149,0.1924,1.676,0.09049,3.625,0.01948,7.499)
+l10t25_1 <- c(0.2226,0.01891,0.1555,0.1318,0.1345,0.4577,0.1442,0.7699,0.1433,1.339,0.1583,2.334,0.04168,5.793)
+l10t25_2 <- c(0.3052,0,0.134,0.2131,0.1389,0.4595,0.1365,0.7769,0.1254,1.499,0.1286,3.03,0.03145,7.117)
 
 l10t50_1 <- compute_cdf(l10t50_1)
 l10t50_2 <- compute_cdf(l10t50_2)
@@ -73,22 +96,108 @@ l10t25_2 <- compute_cdf(l10t25_2)
 
 
 ```{r}
-ggplot(result, aes(x = weights, y = rates)) +
-  geom_step(direction = "vh",linewidth = 0.7) +
+ggplot(l10t90_1, aes(x = weights, y = rates)) +
+  geom_step(data = l10t90_1, direction = "vh",linewidth = 0.7, color = 'red') +
   geom_step(data = l10t90_2, direction = "vh",linewidth = 0.7, color = 'red') +
-  geom_step(data = l10t50_1, direction = "vh",linewidth = 0.7, color = 'blue') +
-  geom_step(data = l10t50_2, direction = "vh",linewidth = 0.7, color = 'orange') +
-  geom_step(data = l10t25_1, direction = "vh",linewidth = 0.7, color = 'yellow') +
-  geom_step(data = l10t25_2, direction = "vh",linewidth = 0.7, color = 'green') +
+  geom_step(data = l10t50_1, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l10t50_2, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l10t25_1, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l10t25_2, direction = "vh",linewidth = 0.7, color = 'black') +
   coord_cartesian(xlim = c(0, 1)) +
-  labs(title = "Cumulative Plot", x = "Weights", y = "Rates") +
-  theme_minimal()
+  labs(x = "Weights", y = "Rates") +
+  theme_minimal()+
+  annotate("text", x = 0, y = 7, label = "1k loci, 90 taxa", color = "red", hjust = 0) +
+  annotate("text", x = 0, y = 6, label = "1k loci, 50/25 taxa", color = "black", hjust = 0)
 ```
 
+```{r}
+l5t50_1 <- c(0.3431,0.05034,0.2215,0.4322,0.2843,1.298,0.1302,2.888,0.021,6.758)
+l5t50_2 <- c(0.3137,0.03011,0.2123,0.2519,0.1625,0.7692,0.2002,1.646,0.09163,3.632, 0.01963,7.625)
+l2t50_1 <- c(0.3318,0.05145,0.2303,0.4359,0.2923,1.3,0.1259,2.92,0.0197,6.843)
+l2t50_2 <- c(0.3105,0.03168,0.2117,0.2545,0.1646,0.7584,0.2001,1.633,0.0924,3.571,0.0207,7.475)
+l1t50_1 <- c(0.339,0.05273,0.233,0.4346,0.2863,1.309,0.1217,3.008,0.01993,7.01)
+l1t50_2 <- c(0.1913,0,0.2708,0.1492,0.1578,0.5247,0.2372,1.369,0.1189,3.185,0.02394,7.243)
 
+l5t50_1 <- compute_cdf(l5t50_1)
+l5t50_2 <- compute_cdf(l5t50_2)
+l2t50_1 <- compute_cdf(l2t50_1)
+l2t50_2 <- compute_cdf(l2t50_2)
+l1t50_1 <- compute_cdf(l1t50_1)
+l1t50_2 <- compute_cdf(l1t50_2)
+```
 
+```{r}
+ggplot(l10t90_1, aes(x = weights, y = rates)) +
+  geom_step(data = l10t90_1, direction = "vh",linewidth = 0.7, color = 'red') +
+  geom_step(data = l10t90_2, direction = "vh",linewidth = 0.7, color = 'red') +
+  geom_step(data = l10t50_1, direction = "vh",linewidth = 0.7, color = 'blue') +
+  geom_step(data = l10t50_2, direction = "vh",linewidth = 0.7, color = 'blue') +
+  geom_step(data = l5t50_1, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l5t50_2, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l2t50_1, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l2t50_2, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l1t50_1, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l1t50_2, direction = "vh",linewidth = 0.7, color = 'black') +
+  coord_cartesian(xlim = c(0, 1)) +
+  labs(x = "Weights", y = "Rates") +
+  theme_minimal()+
+  annotate("text", x = 0, y = 7, label = "1k loci, 90 taxa", color = "red", hjust = 0) +
+  annotate("text", x = 0, y = 6, label = "1k loci, 50 taxa", color = "blue", hjust = 0) +
+  annotate("text", x = 0, y = 5, label = "500/200/100 loci, 50 taxa", color = "black", hjust = 0)
+```
 
+```{r}
+l5t25_1 <- c(0.306,0.03486,0.2076,0.3524,0.2182,0.9186,0.2197,2.043,0.0485,5.501)
+l5t25_2 <- c(0.3116,0,0.1339,0.2108,0.1383,0.4696,0.1353,0.7793,0.1238,1.515,0.1286,3.127,0.02851,7.423)
+l2t25_1 <- c(0.3585,0.05449,0.3371,0.6417,0.2578,1.961,0.04661,5.547)
+l2t25_2 <- c(0.333,0,0.2213,0.3542,0.2248,0.8158,0.1849,2.631,0.036,6.993)
+l1t25_1 <- c(0.3577,0.05317,0.3374,0.62,0.2535,1.927,0.0514,5.514)
+l1t25_2 <- c(0.3664,0,0.3865,0.5749,0.208,2.457,0.03901,6.835)
 
+l5t25_1 <- compute_cdf(l5t25_1)
+l5t25_2 <- compute_cdf(l5t25_2)
+l2t25_1 <- compute_cdf(l2t25_1)
+l2t25_2 <- compute_cdf(l2t25_2)
+l1t25_1 <- compute_cdf(l1t25_1)
+l1t25_2 <- compute_cdf(l1t25_2)
+```
 
+```{r}
+ggplot(l10t90_1, aes(x = weights, y = rates)) +
+  geom_step(data = l10t90_1, direction = "vh",linewidth = 0.7, color = 'red') +
+  geom_step(data = l10t90_2, direction = "vh",linewidth = 0.7, color = 'red') +
+  geom_step(data = l10t25_1, direction = "vh",linewidth = 0.7, color = 'blue') +
+  geom_step(data = l10t25_2, direction = "vh",linewidth = 0.7, color = 'blue') +
+  geom_step(data = l5t25_1, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l5t25_2, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l2t25_1, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l2t25_2, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l1t25_1, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l1t25_2, direction = "vh",linewidth = 0.7, color = 'black') +
+  coord_cartesian(xlim = c(0, 1)) +
+  labs(x = "Weights", y = "Rates") +
+  theme_minimal()+
+  annotate("text", x = 0, y = 7, label = "1k loci, 90 taxa", color = "red", hjust = 0) +
+  annotate("text", x = 0, y = 6, label = "1k loci, 25 taxa", color = "blue", hjust = 0) +
+  annotate("text", x = 0, y = 5, label = "500/200/100 loci, 25 taxa", color = "black", hjust = 0)
+```
 
+```{r}
+ggplot(l10t90_1, aes(x = weights, y = rates)) +
+  geom_step(data = l10t90_1, direction = "vh",linewidth = 0.7, color = 'red') +
+  geom_step(data = l10t90_2, direction = "vh",linewidth = 0.7, color = 'red') +
+  geom_step(data = l10t25_1, direction = "vh",linewidth = 0.7, color = 'blue') +
+  geom_step(data = l10t25_2, direction = "vh",linewidth = 0.7, color = 'blue') +
+  geom_step(data = l1t90_1, direction = "vh",linewidth = 0.7, color = 'green') +
+  geom_step(data = l1t90_2, direction = "vh",linewidth = 0.7, color = 'green') +
+  geom_step(data = l1t25_1, direction = "vh",linewidth = 0.7, color = 'black') +
+  geom_step(data = l1t25_2, direction = "vh",linewidth = 0.7, color = 'black') +
+  coord_cartesian(xlim = c(0, 1)) +
+  labs(x = "Weights", y = "Rates") +
+  theme_minimal()+
+  annotate("text", x = 0, y = 7, label = "1k loci, 90 taxa", color = "red", hjust = 0) +
+  annotate("text", x = 0, y = 6, label = "1k loci, 25 taxa", color = "blue", hjust = 0) +
+  annotate("text", x = 0, y = 5, label = "100 loci, 90 taxa", color = "green", hjust = 0) +
+  annotate("text", x = 0, y = 4, label = "100 loci, 25 taxa", color = "black", hjust = 0)
+```
 
