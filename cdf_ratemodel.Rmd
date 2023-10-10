@@ -64,6 +64,16 @@ l1t90_2 <- compute_cdf(l1t90_2)
 
 ```
 
+```{r}
+ggplot(l10t90_1, aes(x = weights, y = rates)) +
+  geom_step(data = l10t90_1, direction = "vh",linewidth = 0.7, color = 'red') +
+  geom_step(data = l10t90_2, direction = "vh",linewidth = 0.7, color = 'red') +
+  coord_cartesian(xlim = c(0, 1)) +
+  labs(x = "Weights", y = "Rates") +
+  theme_minimal()
+```
+
+
 
 ```{r}
 ggplot(l10t90_1, aes(x = weights, y = rates)) +
