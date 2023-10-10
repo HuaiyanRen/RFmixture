@@ -5,7 +5,7 @@ with open(r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal\qresult.csv
     csv_write.writerow(['weight', 'AC', 'AG',  'AT', 'CG', 'CT', 'GT', 'FA', 'FC', 'FG', 'FT'])
 
 
-iqtree_file = r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal\l10t90_1_q10.iqtree'
+iqtree_file = r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal\l10t90_2_q10.iqtree'
 
 weight = []
 AC = []
@@ -42,6 +42,6 @@ with open(iqtree_file) as b:
 with open(r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal\qresult.csv','a+',newline='') as csvf:
     csv_write = csv.writer(csvf)
     for i in range(0,10):
-        csv_write.writerow(weight[i], AC[i], AG[i], AT[i], CG[i], CT[i], GT[i], FA[i], FC[i], FG[i], FT[i])
+        csv_write.writerow([weight[i], AC[i], AG[i], AT[i], CG[i], CT[i], GT[i], FA[i], FC[i], FG[i], FT[i]])
 
 
