@@ -22,7 +22,7 @@ library(scatterplot3d)
 
 
 ```{r}
-pca1 <- prcomp(result_q10[,c(4:8,10:13)],center = TRUE,scale. = TRUE)
+pca1 <- prcomp(result_q10[,c(4:8)],center = FALSE, scale. = FALSE)
 ```
 
 ```{r}
@@ -52,7 +52,8 @@ ylab1 <- paste0("PC4(",round(summ1$importance[2,4]*100,2),"%)")
 
 ggplot(data = df1,aes(x = PC3,y = PC4,color = result_q10$data))+
   #stat_ellipse(aes(fill = result_q10$data), type = "norm",geom = "polygon",alpha = 0.25,color = NA)+ 
-  geom_point(size = 2)+
+  geom_point(aes(size = result_q10$weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
   labs(x = xlab1,y = ylab1,color = "sample data")+
   guides(fill = "none")+
   theme_bw()+
@@ -73,7 +74,7 @@ legend("topright",c('l10t90_1','l10t90_2'),fill=c('red','blue'),box.col=NA)
 
 
 ```{r}
-pca2 <- prcomp(result_q10[,c(10:13)],center = TRUE,scale. = TRUE)
+pca2 <- prcomp(result_q10[,c(10:13)],center = FALSE,scale. = TRUE)
 ```
 
 ```{r}
