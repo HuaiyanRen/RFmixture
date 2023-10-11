@@ -5,7 +5,7 @@ with open(r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal\qresult.csv
     csv_write.writerow(['weight', 'AC', 'AG',  'AT', 'CG', 'CT', 'GT', 'FA', 'FC', 'FG', 'FT'])
 
 
-iqtree_file = r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal\l10t90_2_q10.iqtree'
+iqtree_file = r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal\l2t90_1_q10.iqtree'
 
 weight = []
 AC = []
