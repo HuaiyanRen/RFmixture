@@ -18,6 +18,13 @@ library(devtools)
 #library(ggbiplot)
 library(ggrepel)
 library(scatterplot3d)
+library(readxl)
+options(scipen=999)
+```
+
+```{r}
+result_q10 <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/result_q10.xlsx")
+View(result_q10)
 ```
 
 
@@ -74,7 +81,7 @@ legend("topright",c('l10t90_1','l10t90_2'),fill=c('red','blue'),box.col=NA)
 
 
 ```{r}
-pca2 <- prcomp(result_q10[,c(10:13)],center = FALSE,scale. = TRUE)
+pca2 <- prcomp(result_q10[,c(10:13)],center = FALSE,scale. = FALSE)
 ```
 
 ```{r}
@@ -89,8 +96,9 @@ ylab2 <- paste0("PC2(",round(summ2$importance[2,2]*100,2),"%)")
 ```{r}
 ggplot(data = df2,aes(x = PC1,y = PC2,color = result_q10$data))+
   #stat_ellipse(aes(fill = result_q10$data), type = "norm",geom = "polygon",alpha = 0.25,color = NA)+ 
-  geom_point(size = 2)+
-  labs(x = xlab1,y = ylab1,color = "sample data")+
+  geom_point(aes(size = result_q10$weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
   guides(fill = "none")+
   theme_bw()+
   geom_text(aes(label = result_q10$class), vjust = 1.5, size = 3.5) 
