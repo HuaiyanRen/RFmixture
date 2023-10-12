@@ -1,11 +1,13 @@
-import csv 
+import pandas as pd
+import os
 
-with open(r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal\qresult.csv','w+',newline='') as csvf:
-    csv_write = csv.writer(csvf)
-    csv_write.writerow(['weight', 'AC', 'AG',  'AT', 'CG', 'CT', 'GT', 'FA', 'FC', 'FG', 'FT'])
+data_name = 'l2t90_1'
+classes = 10
+file_name = data_name + '_q' + str(classes) 
+path = r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal'
 
 
-iqtree_file = r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal\l2t90_1_q10.iqtree'
+iqtree_file = os.path.join(path, file_name + '.iqtree')
 
 weight = []
 AC = []
@@ -19,10 +21,9 @@ FC = []
 FG = []
 FT = []
 
-
 with open(iqtree_file) as b:
     for line in b.readlines():
-        for i in range(0,10):
+        for i in range(0,classes):
             if str(i) + '  GTR' in line:
                 weight.append(float(line.split()[-2]))
                 gtr_all = line.split()[-1]
@@ -39,9 +40,22 @@ with open(iqtree_file) as b:
                 FT.append(float(gtr_list[7].split('}')[0]))
 
 
-with open(r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal\qresult.csv','a+',newline='') as csvf:
-    csv_write = csv.writer(csvf)
-    for i in range(0,10):
-        csv_write.writerow([weight[i], AC[i], AG[i], AT[i], CG[i], CT[i], GT[i], FA[i], FC[i], FG[i], FT[i]])
+df = pd.DataFrame({
+    'data': [data_name]*classes,
+    'class': list(range(1,11)),
+    'weight': weight,
+    'AC': AC,
+    'AG': AG,  
+    'AT': AT, 
+    'CG': CG, 
+    'CT': CT, 
+    'GT': GT, 
+    'FA': FA, 
+    'FC': FC, 
+    'FG': FG, 
+    'FT': FT
+})
 
+xlsx_file = os.path.join(path, file_name + '.xlsx')
+df.to_excel(xlsx_file, index=False, engine='openpyxl')
 
