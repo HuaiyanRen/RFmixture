@@ -16,6 +16,7 @@ library(tidyverse)
 ```
 
 ```{r}
+rm(q10_results)
 df_names <- grep("q10_results$", ls(), value = TRUE)
 q10_results <- do.call(rbind, lapply(df_names, get))
 ```
@@ -42,9 +43,6 @@ common_names <- Reduce(intersect, lapply(df_names, function(df_name) {
   return(df$partition)
 }))
 
-#for (df_name in df_names) {
-#  assign(df_name, get(df_name) %>% filter(partition %in% common_names))
-#}
 for (df_name in df_names) {
   assign(paste0(df_name, "_filtered"), get(df_name) %>% filter(partition %in% common_names))
 }
@@ -52,6 +50,7 @@ for (df_name in df_names) {
 
 
 ```{r}
+rm(q10_results_filtered)
 df_name_filtered <- grep("q10_results_filtered$", ls(), value = TRUE)
 q10_results_filtered <- do.call(rbind, lapply(df_name_filtered, get))
 ```

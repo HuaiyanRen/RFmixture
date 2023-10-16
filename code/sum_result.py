@@ -3,7 +3,7 @@ from ete3 import Tree
 import csv   
 
                 
-data_name = 'l10t90_1'
+data_name = 'l10t90_2'
 classes = 10
 file_name = data_name + '_q' + str(classes) 
 
