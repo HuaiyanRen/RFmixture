@@ -15,10 +15,15 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
-
-
 ```{r}
 df_names <- grep("q10_results$", ls(), value = TRUE)
 q10_results <- do.call(rbind, lapply(df_names, get))
+```
+
+
+```{r}
+ggplot(q10_results, aes(x = data, y = nrf)) +
+  geom_boxplot()+
+  theme_bw()
 ```
 
