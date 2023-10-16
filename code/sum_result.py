@@ -38,11 +38,11 @@ for part_name in part_list:
         with open(sub_true_treefile, 'w') as result:
             result.write(true_tree.write() + '\n')
         
-        #if not os.path.exists(file_name + '/' + part_name + '_rf.rfdist'):
-        #    rf_cmd = 'iqtree2 -rf ' + part_treefile + ' ' + sub_true_treefile + ' -pre ' + file_name + '/' + part_name + '_rf'
-        #    os.system(rf_cmd)
-        rf_cmd = 'iqtree2 -rf ' + part_treefile + ' ' + sub_true_treefile + ' -pre ' + file_name + '/' + part_name + '_rf -redo'
-        os.system(rf_cmd)
+        if not os.path.exists(file_name + '/' + part_name + '_rf.rfdist'):
+            rf_cmd = 'iqtree2 -rf ' + part_treefile + ' ' + sub_true_treefile + ' -pre ' + file_name + '/' + part_name + '_rf'
+            os.system(rf_cmd)
+        #rf_cmd = 'iqtree2 -rf ' + part_treefile + ' ' + sub_true_treefile + ' -pre ' + file_name + '/' + part_name + '_rf -redo'
+        #os.system(rf_cmd)
         
         with open(file_name + '/' + part_name + '.iqtree') as iqtree_file:
             for line in iqtree_file.readlines():
