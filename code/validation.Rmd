@@ -1,0 +1,24 @@
+---
+title: "Untitled"
+author: "u7151703"
+date: "2023-10-16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(tidyverse)
+```
+
+
+
+```{r}
+df_names <- grep("q10_results$", ls(), value = TRUE)
+q10_results <- do.call(rbind, lapply(df_names, get))
+```
+
