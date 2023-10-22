@@ -16,6 +16,31 @@ library(tidyverse)
 ```
 
 ```{r}
+plot_data_inc <- mf_results_inc %>%
+  pivot_longer(cols = -partition,
+               names_to = "model",
+               values_to = "order")
+```
+
+```{r}
+ggplot(plot_data_inc,aes(x = model))+
+  geom_bar(aes(fill = as.character(order)))
+```
+
+```{r}
+plot_data_dec <- mf_results_dec %>%
+  pivot_longer(cols = -partition,
+               names_to = "model",
+               values_to = "order")
+```
+
+```{r}
+ggplot(plot_data_dec,aes(x = model))+
+  geom_bar(aes(fill = as.character(order)))
+```
+
+
+```{r}
 rm(q10_results)
 df_names <- grep("q10_results$", ls(), value = TRUE)
 q10_results <- do.call(rbind, lapply(df_names, get))
