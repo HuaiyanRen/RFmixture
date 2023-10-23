@@ -16,26 +16,26 @@ library(tidyverse)
 ```
 
 ```{r}
-plot_data_inc <- mf_results_inc %>%
+plot_data_inc2 <- mf_results_inc2 %>%
   pivot_longer(cols = -partition,
                names_to = "model",
                values_to = "order")
 ```
 
 ```{r}
-ggplot(plot_data_inc,aes(x = model))+
+ggplot(plot_data_inc2,aes(x = model))+
   geom_bar(aes(fill = as.character(order)))
 ```
 
 ```{r}
-plot_data_dec <- mf_results_dec %>%
+plot_data_dec2 <- mf_results_dec2 %>%
   pivot_longer(cols = -partition,
                names_to = "model",
                values_to = "order")
 ```
 
 ```{r}
-ggplot(plot_data_dec,aes(x = model))+
+ggplot(plot_data_dec2,aes(x = model))+
   geom_bar(aes(fill = as.character(order)))
 ```
 
