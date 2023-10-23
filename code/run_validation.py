@@ -27,9 +27,9 @@ def control(start, end, pool_num, method, decrease):
 def running_iqtree(paras):
     file_name, method, decrease = paras
     if decrease:
-        cmd = 'iqtree2 -s ' + file_name + ' -m ' + method + ' -mset best_q1,l10t90_1_q10,l10t90_2_q10,l5t90_1_q10,l2t90_1_q10,l2t90_2_q10,l1t90_1_q10,l1t90_2_q10 -mrate E -mdef modelfile.nex -pre mf_dec/' + file_name + ' -nt 1 -redo'
+        cmd = 'iqtree2 -s ' + file_name + ' -m ' + method + ' -mset best_q1,l10t90_2_q10,l10t90_1_q10,l5t90_2_q10,l5t90_1_q10,l2t90_2_q10,l2t90_1_q10,l1t90_2_q10,l1t90_1_q10 -mrate E -mdef modelfile.nex -pre mf_dec2/' + file_name + ' -nt 1 -redo'
     else:
-        cmd = 'iqtree2 -s ' + file_name + ' -m ' + method + ' -mset best_q1,l1t90_1_q10,l1t90_2_q10,l2t90_1_q10,l2t90_2_q10,l5t90_1_q10,l10t90_1_q10,l10t90_2_q10 -mrate E -mdef modelfile.nex -pre mf_inc/' + file_name + ' -nt 1 -redo'
+        cmd = 'iqtree2 -s ' + file_name + ' -m ' + method + ' -mset best_q1,l1t90_1_q10,l1t90_2_q10,l2t90_1_q10,l2t90_2_q10,l5t90_1_q10,l5t90_2_q10,l10t90_1_q10,l10t90_2_q10 -mrate E -mdef modelfile.nex -pre mf_inc2/' + file_name + ' -nt 1 -redo'
     os.system(cmd)  
     
 # running
