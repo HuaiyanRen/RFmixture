@@ -58,12 +58,13 @@ df1$data <- result_q10$data
 df1$weight <- result_q10$weight
 df1$class <- result_q10$class
 
-ggplot(data = df1 %>% filter(data %in% c('l10t90_2', 'l1t90_1', 'l2t90_1')),aes(x = PC1,y = PC2,color = data))+
+ggplot(data = df1 %>% filter(data %in% c('l10t90_1','l10t90_2', 'l5t90_1', 'l5t90_2', 'l1t90_1', 'l1t90_2')),aes(x = PC1,y = PC2,color = data))+
   #stat_ellipse(aes(fill = result_q10$data), type = "norm",geom = "polygon",alpha = 0.25,color = NA)+ 
   geom_point(aes(size = weight), alpha = 0.2)+
   scale_size_continuous(range = c(1, 5)) +
   labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
   guides(fill = "none")+
+  xlim(-20,0)+ ylim(-10,10)+
   theme_bw()+
   geom_text(aes(label = class), vjust = 1.5, size = 3.5) 
 ```
