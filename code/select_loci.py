@@ -24,16 +24,6 @@ with open('charset.csv', 'r') as charsets:
         starts.append(row[4])
         ends.append(row[5])
 
-with open('taxa_list.csv', 'r') as charsets:
-    reader = csv.reader(charsets)
-    taxa_name = []
-    for row in reader:
-        taxa_name.append(row[0])
-
-with open('alignment.nex', 'r') as aln:
-    lines = [line for line in aln]
-
-
 
 with open('l10_1.txt', 'w') as loci:
     for i in set1:
