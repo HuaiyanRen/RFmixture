@@ -24,8 +24,16 @@ options(scipen=999)
 ```
 
 ```{r}
-result_q10 <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/result_q10.xlsx")
+result_q10 <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/qmix_result.xlsx")
 View(result_q10)
+```
+
+```{r}
+result_q10$AC_l <- log(result_q10$AC,base = 10)
+result_q10$AG_l <- log(result_q10$AG,base = 10)
+result_q10$AT_l <- log(result_q10$AT,base = 10)
+result_q10$CG_l <- log(result_q10$CG,base = 10)
+result_q10$CT_l <- log(result_q10$CT,base = 10)
 ```
 
 
