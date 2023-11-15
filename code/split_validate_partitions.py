@@ -5,10 +5,13 @@ import re
 
 random.seed(2023)
 
-loci_list = list(range(0, 5162))  
-selected_numbers = random.sample(loci_list, 2000)
 
-validate_list = list(set(loci_list) - set(selected_numbers))
+loci_list = list(range(0, 1308))  
+set1 = random.sample(loci_list, 1000)
+
+set_l5 = random.sample(set1, 500)
+
+validate_list = list(set(loci_list) - set(set_l5))
 
 
 with open('charset.csv', 'r') as charsets:
@@ -44,12 +47,12 @@ for i in validate_list:
     filtered_lines = []
     remove = 0
     for idx, line in enumerate(lines, start=1):  
-        if 7 <= idx < 97 and not contains_required_letters(line.split()[1]):
+        if 7 <= idx < 45 and not contains_required_letters(line.split()[1]):
             remove += 1
             continue
         filtered_lines.append(line)
     
-    filtered_lines[3] = re.sub(r'(NTAX=)\d+', r'NTAX=' + str(90 - remove), lines[3])
+    filtered_lines[3] = re.sub(r'(NTAX=)\d+', r'NTAX=' + str(38 - remove), lines[3])
     
     with open(old_name, 'w') as file:
         file.writelines(filtered_lines)
