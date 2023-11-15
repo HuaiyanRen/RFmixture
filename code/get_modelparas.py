@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-data_list = ['l1']
+data_list = ['l1','l2','l5']
 
 for data_name in data_list:
     #data_name = 'l2t90_1'
