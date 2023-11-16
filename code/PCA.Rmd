@@ -24,7 +24,7 @@ options(scipen=999)
 ```
 
 ```{r}
-result_q10 <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/qmix_result.xlsx")
+result_q10 <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/plant/q10.xlsx")
 View(result_q10)
 ```
 
@@ -60,6 +60,23 @@ ggplot(data = df1 ,aes(x = PC1,y = PC2,color = result_q10$data))+
   theme_bw()+
   geom_text(aes(label = result_q10$class), vjust = 1.5, size = 3.5) 
 ```
+
+```{r}
+summ1 <- summary(pca1)
+xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
+ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
+
+ggplot(data = df1 ,aes(x = PC1,y = PC2,color = result_q10$data))+
+  #stat_ellipse(aes(fill = result_q10$data), type = "norm",geom = "polygon",alpha = 0.25,color = NA)+ 
+  geom_point(aes(size = result_q10$weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  theme_bw()+
+  geom_text(aes(label = result_q10$class), vjust = 1.5, size = 3.5) 
+```
+
+
 
 ```{r}
 df1$data <- result_q10$data

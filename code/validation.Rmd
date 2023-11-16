@@ -16,7 +16,7 @@ library(tidyverse)
 ```
 
 ```{r}
-plot_data_inc2 <- mf_results_inc2 %>%
+plot_data_inc2 <- mf_results_inc_plant %>%
   pivot_longer(cols = -partition,
                names_to = "model",
                values_to = "order")
@@ -28,7 +28,7 @@ ggplot(plot_data_inc2,aes(x = model))+
 ```
 
 ```{r}
-plot_data_dec2 <- mf_results_dec2 %>%
+plot_data_dec2 <- mf_results_dec_plant %>%
   pivot_longer(cols = -partition,
                names_to = "model",
                values_to = "order")
@@ -40,60 +40,6 @@ ggplot(plot_data_dec2,aes(x = model))+
 ```
 
 
-```{r}
-rm(q10_results)
-df_names <- grep("q10_results$", ls(), value = TRUE)
-q10_results <- do.call(rbind, lapply(df_names, get))
-```
 
-
-```{r}
-ggplot(q10_results, aes(x = data, y = nrf)) +
-  geom_boxplot()+
-  theme_bw()
-```
-
-```{r}
-ggplot(q10_results, aes(x = data, y = bic)) +
-  geom_boxplot()+
-  scale_y_log10()+
-  theme_bw()
-```
-
-
-```{r}
-rm(q10_results)
-common_names <- Reduce(intersect, lapply(df_names, function(df_name) {
-  df <- get(df_name)
-  return(df$partition)
-}))
-
-for (df_name in df_names) {
-  assign(paste0(df_name, "_filtered"), get(df_name) %>% filter(partition %in% common_names))
-}
-```
-
-
-```{r}
-rm(q10_results_filtered)
-df_name_filtered <- grep("q10_results_filtered$", ls(), value = TRUE)
-q10_results_filtered <- do.call(rbind, lapply(df_name_filtered, get))
-```
-
-
-```{r}
-ggplot(q10_results_filtered, aes(x = data, y = nrf)) +
-  geom_boxplot()+
-  geom_line(aes(group=partition), alpha = 0.2)+
-  theme_bw()
-```
-
-```{r}
-ggplot(q10_results_filtered, aes(x = data, y = bic)) +
-  geom_boxplot()+
-  scale_y_log10()+
-  geom_line(aes(group=partition), alpha = 0.2)+
-  theme_bw()
-```
 
 
