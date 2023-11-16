@@ -31,6 +31,13 @@ for part_name in part_list:
     with open('mf_results_dec.csv','a+',newline='') as csvf:
         csv_write = csv.writer(csvf)
         csv_write.writerow(result_row)
+
+
+
+with open('mf_results_inc.csv','w+',newline='') as csvf:
+    csv_write = csv.writer(csvf)
+    csv_write.writerow(['partition', 'q1', 'l1','l2','l5'])   
+    
         
         
 for part_name in part_list:
