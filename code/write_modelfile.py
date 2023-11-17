@@ -1,11 +1,11 @@
 import pandas as pd
 import os
 
-data_list = ['l1','l2','l5']
+data_list = ['l2t50_1','l2t90_1']
 
 classes = 10
-path = r'C:\Users\u7151703\Desktop\research\RFmixture\data\plant'
-modelfile =  os.path.join(path, 'modelfile.nex')
+path = r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal'
+modelfile =  os.path.join(path, 'modelfile2.nex')
 
 with open(modelfile,'w+') as f:
     f.write('#nexus' + '\n' + 'begin models;' + '\n') 

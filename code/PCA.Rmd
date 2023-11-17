@@ -24,7 +24,7 @@ options(scipen=999)
 ```
 
 ```{r}
-result_q10 <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/plant/q10.xlsx")
+result_q10 <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/l2_q10.xlsx")
 View(result_q10)
 ```
 
