@@ -1,13 +1,13 @@
 import pandas as pd
 import os
 
-data_list = ['l1','l2','l5']
+data_list = ['l2t50_1']
 
 for data_name in data_list:
     #data_name = 'l2t90_1'
     classes = 10
     file_name = data_name + '_q' + str(classes) 
-    path = r'C:\Users\u7151703\Desktop\research\RFmixture\data\plant'
+    path = r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal'
     
     
     iqtree_file = os.path.join(path, file_name + '.iqtree')
