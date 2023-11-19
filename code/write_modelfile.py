@@ -1,10 +1,10 @@
 import pandas as pd
 import os
 
-data_list = ['l2t50_1','l2t90_1']
+data_list = ['l10']
 
 classes = 10
-path = r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal'
+path = r'C:\Users\u7151703\Desktop\research\RFmixture\data\plant'
 modelfile =  os.path.join(path, 'modelfile2.nex')
 
 with open(modelfile,'w+') as f:
@@ -77,7 +77,7 @@ for data_name in data_list:
         model_str_mix = model_str_mix + '}+R' + str(n_rate) + '{' + rate_str + '};'
     
     with open(modelfile,'a+') as f:
-        if data_name == 'l5':
+        if data_name == 'l10':
             f.write('\tmodel ' + data_name + '_mf = ' + model_str_1 + '\n') 
         f.write('\tmodel ' + file_name + ' = ' + model_str_mix + '\n') 
         
