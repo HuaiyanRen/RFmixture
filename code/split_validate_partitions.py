@@ -9,9 +9,7 @@ random.seed(2023)
 loci_list = list(range(0, 1308))  
 set1 = random.sample(loci_list, 1000)
 
-set_l5 = random.sample(set1, 500)
-
-validate_list = list(set(loci_list) - set(set_l5))
+validate_list = list(set(loci_list) - set(set1))
 
 
 with open('charset.csv', 'r') as charsets:
