@@ -24,7 +24,7 @@ options(scipen=999)
 ```
 
 ```{r}
-result_q10 <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/l2_q10.xlsx")
+result_q10 <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/q10_12.xlsx")
 View(result_q10)
 ```
 
@@ -36,9 +36,12 @@ result_q10$CG_l <- log(result_q10$CG,base = 10)
 result_q10$CT_l <- log(result_q10$CT,base = 10)
 ```
 
+```{r}
+q10_sub <- result_q10 %>% filter(data %in% c('l10t90_1', 'l5t90_1', 'l2t90_1', 'l1t90_1'))
+```
 
 ```{r}
-pca1 <- prcomp(result_q10[,c(14:18)],center = FALSE, scale. = FALSE)
+pca1 <- prcomp(q10_sub[,c(14:18)],center = FALSE, scale. = FALSE)
 ```
 
 ```{r}
@@ -46,19 +49,20 @@ df1 <- pca1$x
 df1 <- as.data.frame(df1) 
 ```
 
+
 ```{r}
 summ1 <- summary(pca1)
 xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
 ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
 
-ggplot(data = df1 ,aes(x = PC1,y = PC2,color = result_q10$data))+
+ggplot(data = df1 ,aes(x = PC1,y = PC2,color = q10_sub$data))+
   #stat_ellipse(aes(fill = result_q10$data), type = "norm",geom = "polygon",alpha = 0.25,color = NA)+ 
-  geom_point(aes(size = result_q10$weight), alpha = 0.2)+
+  geom_point(aes(size = q10_sub$weight), alpha = 0.2)+
   scale_size_continuous(range = c(1, 5)) +
   labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
   guides(fill = "none")+
   theme_bw()+
-  geom_text(aes(label = result_q10$class), vjust = 1.5, size = 3.5) 
+  geom_text(aes(label = q10_sub$class), vjust = 1.5, size = 3.5) 
 ```
 
 ```{r}
