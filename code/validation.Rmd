@@ -52,7 +52,8 @@ mix_q10_long <- mix_vs_q10 %>%
 ```{r}
 ggplot(mix_q10_long,aes(x= item, fill = value))+
   geom_bar()+
-  labs(y= 'better')
+  labs(y= 'better')+
+  theme_bw()
 ```
 
 ```{r}
@@ -77,7 +78,8 @@ ggplot(mix_q10_time, aes(x= classes,y = value/3600,color= item))+
   geom_jitter(data = mix_q10_time %>% filter(item == 'Q10'),aes(x = classes-0.2, y = value/3600),width =0.15)+
   geom_jitter(data = mix_q10_time %>% filter(item == 'MixtureFinder'),aes(x = classes+0.2, y = value/3600),width =0.15)+
   scale_x_continuous(breaks = c(2,3,4,5,6,7,8,9))+
-  labs(y = 'time(h)')
+  labs(y = 'time(h)')+
+  theme_bw()
 ```
 
 
