@@ -1,12 +1,7 @@
 import os
-from ete3 import Tree
 import csv   
 
                 
-data_name = 'l1t90_1'
-classes = 10
-file_name = data_name + '_q' + str(classes) 
-
 with open('validate.txt', 'r') as file:
     lines = file.readlines()
 
@@ -15,55 +10,54 @@ for i in range(len(lines)):
     part_list.append(str(i+1) + '_' + lines[i].split()[0] + '.nex')
     
 
-with open(file_name + '_results.csv','w+',newline='') as csvf:
+with open('results.csv','w+',newline='') as csvf:
     csv_write = csv.writer(csvf)
-    csv_write.writerow(['data','partition', 'bic', 'nrf', 'tree_length'])
-    
-count = 0    
+    csv_write.writerow(['partition', 'length', 'classes', 'lnl', 'bic', 'time', 'time_mix', 'time_q10'])
+
+
 for part_name in part_list:
-    if os.path.exists(file_name + '/' + part_name + '.iqtree'):
-        count += 1
+    if os.path.exists('mix_bic/' + part_name + '.iqtree'):
+        if os.path.exists('q10/' + part_name + '.iqtree'):
+            with open('mix_bic/' + part_name + '.iqtree') as iqtree_file:
+                for line in iqtree_file.readlines():
+                    if 'Input data:' in line:
+                        length = float(line.split()[5])
+                    if 'Best-fit model according to BIC:' in line:
+                        classes = int(line.count(','))+1
+                    if 'Log-likelihood of the tree:' in line:
+                        lnl_mix = float(line.split()[4])
+                    if 'Bayesian information criterion (BIC) score' in line:
+                        bic_mix = float(line.split()[-1])
+                    if 'Total CPU time used:' in line:
+                        time_mix = float(line.split()[4])
+                            
+            with open('q10/' + part_name + '.iqtree') as iqtree_file:
+                for line in iqtree_file.readlines():
+                    if 'Log-likelihood of the tree:' in line:
+                        lnl_q10 = float(line.split()[4])
+                    if 'Bayesian information criterion (BIC) score' in line:
+                        bic_q10 = float(line.split()[-1])
+                    if 'Total CPU time used:' in line:
+                        time_q10 = float(line.split()[4])
+                            
+            if lnl_mix > lnl_q10:
+                lnl = 'MixtureFinder'
+            else:
+                lnl = 'Q10'
                     
-        part_treefile = file_name + '/' + part_name + '.treefile'
-        part_treestr = open(part_treefile,'r').read()
-        part_tree = Tree(part_treestr)
-        nodes = set(part_tree.get_leaf_names())
-        
-        true_treefile = 'aa_t90_unrooted.treefile'
-        true_treestr = open(true_treefile,'r').read()
-        true_tree = Tree(true_treestr)        
-        true_tree.prune(nodes)
-        true_tree.unroot()
-        sub_true_treefile =  file_name + '/' + part_name + '_true.treefile'
-        with open(sub_true_treefile, 'w') as result:
-            result.write(true_tree.write() + '\n')
-        
-        if not os.path.exists(file_name + '/' + part_name + '_rf.rfdist'):
-            rf_cmd = 'iqtree2 -rf ' + part_treefile + ' ' + sub_true_treefile + ' -pre ' + file_name + '/' + part_name + '_rf'
-            os.system(rf_cmd)
-        #rf_cmd = 'iqtree2 -rf ' + part_treefile + ' ' + sub_true_treefile + ' -pre ' + file_name + '/' + part_name + '_rf -redo'
-        #os.system(rf_cmd)
-        
-        with open(file_name + '/' + part_name + '.iqtree') as iqtree_file:
-            for line in iqtree_file.readlines():
-                if 'Input data:' in line:
-                    ntaxa = float(line.split()[2])
-                if 'Bayesian information criterion (BIC) score' in line:
-                    bic = float(line.split()[-1])
-                if 'Total tree length (sum of branch lengths)' in line:
-                    tree_length = float(line.split()[-1])
-        
-        with open(file_name + '/' + part_name + '_rf.rfdist') as rf_file:
-            for line in rf_file.readlines():
-                if 'Tree0' in line:
-                    rf = float(line.split()[-1])
+            if bic_mix < bic_q10:
+                bic = 'MixtureFinder'
+            else:
+                bic = 'Q10'
+                
+            if time_mix < time_q10:
+                time = 'MixtureFinder'
+            else:
+                time = 'Q10'
                     
-        nrf = rf/(2*ntaxa-6)
+            result_row = [part_name, length, classes, lnl, bic, time, time_mix, time_q10]    
+            
+            with open('results.csv','a+',newline='') as csvf:
+                csv_write = csv.writer(csvf)
+                csv_write.writerow(result_row)
 
-        result_row = [data_name, part_name, bic, nrf, tree_length]
-        
-        with open(file_name + '_results.csv','a+',newline='') as csvf:
-            csv_write = csv.writer(csvf)
-            csv_write.writerow(result_row)
-
-print(str(count) + ' results are recorded')
