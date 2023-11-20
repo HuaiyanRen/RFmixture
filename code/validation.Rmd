@@ -40,6 +40,66 @@ ggplot(plot_data_dec2,aes(x = model))+
 ```
 
 
+```{r}
+mix_q10_long <- mix_vs_q10 %>%
+  pivot_longer(cols = c('lnl', 'bic', 'time'), names_to = "item") %>%
+  arrange("item") %>%
+  group_by(row_number()) %>%
+  summarise_all(~first(.), .groups = 'drop')
+```
 
+
+```{r}
+ggplot(mix_q10_long,aes(x= item, fill = value))+
+  geom_bar()+
+  labs(y= 'better')
+```
+
+```{r}
+mix_q10_time <- mix_vs_q10 %>% slice(101:n()) %>%
+  pivot_longer(cols = c('time_q10', 'time_mix'), names_to = "item") %>%
+  arrange("item") %>%
+  group_by(row_number()) %>%
+  summarise_all(~first(.), .groups = 'drop')
+
+mix_q10_time$item[which(mix_q10_time$item == 'time_q10')] <- 'Q10'
+mix_q10_time$item[which(mix_q10_time$item == 'time_mix')] <- 'MixtureFinder'
+```
+
+```{r}
+ggplot(mix_q10_time, aes(x= length, y = value/3600, color = item))+
+  geom_point()+
+  labs(y = 'time(h)')
+```
+
+```{r}
+ggplot(mix_q10_time, aes(x= classes,y = value/3600,color= item))+
+  geom_jitter(data = mix_q10_time %>% filter(item == 'Q10'),aes(x = classes-0.2, y = value/3600),width =0.15)+
+  geom_jitter(data = mix_q10_time %>% filter(item == 'MixtureFinder'),aes(x = classes+0.2, y = value/3600),width =0.15)+
+  scale_x_continuous(breaks = c(2,3,4,5,6,7,8,9))+
+  labs(y = 'time(h)')
+```
+
+
+```{r}
+ggplot(mix_vs_q10,aes(x =classes, y = length, color = time_mix))+
+  geom_jitter()+
+  scale_x_continuous(breaks = c(2,3,4,5,6,7,8,9))+
+  scale_color_viridis_c(option = "magma")
+```
+
+```{r}
+ggplot(mix_vs_q10,aes(x = as.character(classes)))+
+  geom_bar()+
+  labs(x = 'classes by MixtureFinder')+
+  theme_bw()
+```
+
+```{r}
+ggplot(mix_vs_q10,aes(x = length))+
+  geom_density()+
+  labs(x = 'sites')+
+  theme_bw()
+```
 
 
