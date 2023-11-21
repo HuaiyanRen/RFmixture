@@ -16,7 +16,7 @@ library(tidyverse)
 ```
 
 ```{r}
-plot_data_inc2 <- mf_results_inc_plant %>%
+plot_data_inc2 <- mf_results_inc_plant_l10 %>%
   pivot_longer(cols = -partition,
                names_to = "model",
                values_to = "order")
