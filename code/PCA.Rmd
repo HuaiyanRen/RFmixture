@@ -24,7 +24,7 @@ options(scipen=999)
 ```
 
 ```{r}
-result_q10 <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/q10_12.xlsx")
+result_q10 <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/plant/q10.xlsx")
 View(result_q10)
 ```
 
@@ -37,7 +37,8 @@ result_q10$CT_l <- log(result_q10$CT,base = 10)
 ```
 
 ```{r}
-q10_sub <- result_q10 %>% filter(data %in% c('l10t90_1', 'l5t90_1', 'l2t90_1', 'l1t90_1','l10t90_2', 'l5t90_2', 'l2t90_2', 'l1t90_2'))
+#q10_sub <- result_q10 %>% filter(data %in% c('l10t90_1', 'l5t90_1', 'l2t90_1', 'l1t90_1','l10t90_2', 'l5t90_2', 'l2t90_2', 'l1t90_2'))
+q10_sub <- result_q10
 
 pca1 <- prcomp(q10_sub[,c(14:18)],center = FALSE, scale. = FALSE)
 
@@ -78,53 +79,15 @@ ggplot(data = df1 %>% filter(data %in% c('l10t90_1','l2t90_1')) ,aes(x = PC1,y =
 ```
 
 ```{r}
-summ1 <- summary(pca1)
-xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
-ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
-
-ggplot(data = df1 ,aes(x = PC1,y = PC2,color = result_q10$data))+
-  #stat_ellipse(aes(fill = result_q10$data), type = "norm",geom = "polygon",alpha = 0.25,color = NA)+ 
-  geom_point(aes(size = result_q10$weight), alpha = 0.2)+
+ggplot(data = df1 ,aes(x = PC1,y = PC2,color = q10_sub$data))+
+  geom_point(aes(size = q10_sub$weight), alpha = 0.2)+
   scale_size_continuous(range = c(1, 5)) +
   labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
   guides(fill = "none")+
-  theme_bw()+
-  geom_text(aes(label = result_q10$class), vjust = 1.5, size = 3.5) 
+  #geom_text(aes(label = q10_sub$class), vjust = 1.5, size = 3.5)+ 
+  theme_bw() 
 ```
 
-
-
-```{r}
-df1$data <- result_q10$data
-df1$weight <- result_q10$weight
-df1$class <- result_q10$class
-
-ggplot(data = df1 %>% filter(data %in% c('l10t90_1','l10t90_2', 'l5t90_1', 'l5t90_2', 'l1t90_1', 'l1t90_2')),aes(x = PC1,y = PC2,color = data))+
-  #stat_ellipse(aes(fill = result_q10$data), type = "norm",geom = "polygon",alpha = 0.25,color = NA)+ 
-  geom_point(aes(size = weight), alpha = 0.2)+
-  scale_size_continuous(range = c(1, 5)) +
-  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
-  guides(fill = "none")+
-  xlim(-20,0)+ ylim(-10,10)+
-  theme_bw()+
-  geom_text(aes(label = class), vjust = 1.5, size = 3.5) 
-```
-
-
-```{r}
-summ1 <- summary(pca1)
-xlab1 <- paste0("PC3(",round(summ1$importance[2,3]*100,2),"%)")
-ylab1 <- paste0("PC4(",round(summ1$importance[2,4]*100,2),"%)")
-
-ggplot(data = df1,aes(x = PC3,y = PC4,color = result_q10$data))+
-  #stat_ellipse(aes(fill = result_q10$data), type = "norm",geom = "polygon",alpha = 0.25,color = NA)+ 
-  geom_point(aes(size = result_q10$weight), alpha = 0.2)+
-  scale_size_continuous(range = c(1, 5)) +
-  labs(x = xlab1,y = ylab1,color = "sample data")+
-  guides(fill = "none")+
-  theme_bw()+
-  geom_text(aes(label = result_q10$class), vjust = 1.5, size = 3.5) 
-```
 
 ```{r}
 xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
