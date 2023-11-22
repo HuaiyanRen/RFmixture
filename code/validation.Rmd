@@ -104,4 +104,19 @@ ggplot(mix_vs_q10,aes(x = length))+
   theme_bw()
 ```
 
+```{r}
+weights_plot <- weights %>%
+  pivot_longer(cols = -partition,
+               names_to = "index",
+               values_to = "weight")
+
+weights_plot$index <- factor(weights_plot$index, levels = c('w1', 'w2', 'w3', 'w4', 'w5', 'w6', 'w7', 'w8', 'w9', 'w10'))
+
+ggplot(weights_plot, aes(x = weight))+
+  geom_density()+
+  facet_wrap(~index)+
+  geom_vline(xintercept = 0.1, color = 'red')
+```
+
+
 
