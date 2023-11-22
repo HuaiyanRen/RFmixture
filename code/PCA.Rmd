@@ -24,7 +24,7 @@ options(scipen=999)
 ```
 
 ```{r}
-result_q10 <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/plant/q10.xlsx")
+result_q10 <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/q10_12.xlsx")
 View(result_q10)
 ```
 
@@ -38,7 +38,9 @@ result_q10$CT_l <- log(result_q10$CT,base = 10)
 
 ```{r}
 #q10_sub <- result_q10 %>% filter(data %in% c('l10t90_1', 'l5t90_1', 'l2t90_1', 'l1t90_1','l10t90_2', 'l5t90_2', 'l2t90_2', 'l1t90_2'))
-q10_sub <- result_q10
+#q10_sub <- result_q10
+
+q10_sub <- result_q10 %>% filter(data %in% c('l10t90_1','l10t90_2','l2t90_1','l2t90_2'))
 
 pca1 <- prcomp(q10_sub[,c(14:18)],center = FALSE, scale. = FALSE)
 
@@ -55,7 +57,7 @@ df1$data <- q10_sub$data
 df1$weight <- q10_sub$weight
 df1$class <- q10_sub$class
 
-ggplot(data = df1 %>% filter(data %in% c('l10t90_1', 'l5t90_1', 'l2t90_1', 'l1t90_1')) ,aes(x = PC1,y = PC2,color = data))+
+ggplot(data = df1 %>% filter(data %in% c('l10t90_1','l10t90_2','l2t90_1','l2t90_2')) ,aes(x = PC1,y = PC2,color = data))+
   geom_point(aes(size = weight), alpha = 0.2)+
   scale_size_continuous(range = c(1, 5)) +
   labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
@@ -63,6 +65,21 @@ ggplot(data = df1 %>% filter(data %in% c('l10t90_1', 'l5t90_1', 'l2t90_1', 'l1t9
   #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
   theme_bw()
 ```
+
+```{r}
+df1$data <- q10_sub$data
+df1$weight <- q10_sub$weight
+df1$class <- q10_sub$class
+
+ggplot(data = df1 %>% filter(data %in% c('l2t90_1','l2t90_2')) ,aes(x = PC1,y = PC2,color = data))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()
+```
+
 
 ```{r}
 df1$data <- q10_sub$data
