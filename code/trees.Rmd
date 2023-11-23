@@ -23,10 +23,50 @@ library(treeio)
 
 ```{r}
 spe_tree <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/aa_t90_unrooted.treefile")
-mf_tree <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/ast_bic.tre")
-mf_tree <- unroot(mf_tree)
-q10_tree <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/ast_q10.tre")
-q10_tree <- unroot(q10_tree)
+mf_tree <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/ast_bic_unroot.treefile")
+q10_tree <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/ast_q10_unroot.treefile")
 ```
+
+
+```{r}
+spe_tree <- root(spe_tree, outgroup = "DANIO_RER", edgelabel = TRUE)
+mf_tree <- root(mf_tree, outgroup = "DANIO_RER", edgelabel = TRUE)
+q10_tree <- root(q10_tree, outgroup = "DANIO_RER", edgelabel = TRUE)
+```
+
+
+```{r}
+d1 <- fortify(mf_tree,branch.length='none')
+d2 <- fortify(q10_tree,branch.length='none')
+```
+
+```{r}
+d2$x <- max(d2$x) - d2$x + max(d1$x) + 4
+
+dd = bind_rows(d1,d2) %>% 
+  filter(!is.na(label)) 
+
+```
+
+
+```{r}
+ggtree(mf_tree,branch.length='none') + 
+  geom_tree() + 
+  geom_tree(data = d2)+
+  geom_tiplab(data=d1, size = 2) +
+  #geom_tiplab(data=d2, size = 1) +
+  geom_nodelab(size = 1)+
+  geom_nodelab(data=d2, size = 1, nudge_x = -0.7)+
+  geom_line(aes(x, y, group=label), data=dd, alpha=0.3)
+```
+
+
+
+
+
+
+
+
+
 
 
