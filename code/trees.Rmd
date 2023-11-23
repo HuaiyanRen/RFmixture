@@ -1,0 +1,32 @@
+---
+title: "Untitled"
+author: "u7151703"
+date: "2023-11-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(ggtree)
+library(dplyr)
+library(phytools)
+library(ape)
+library(ggnewscale)
+library(shadowtext)
+library(TDbook)
+library(treeio)
+```
+
+```{r}
+spe_tree <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/aa_t90_unrooted.treefile")
+mf_tree <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/ast_bic.tre")
+mf_tree <- unroot(mf_tree)
+q10_tree <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/ast_q10.tre")
+q10_tree <- unroot(q10_tree)
+```
+
+
