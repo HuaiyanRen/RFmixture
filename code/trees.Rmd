@@ -36,8 +36,8 @@ q10_tree <- root(q10_tree, outgroup = "DANIO_RER", edgelabel = TRUE)
 
 
 ```{r}
-d1 <- fortify(mf_tree,branch.length='none')
-d2 <- fortify(q10_tree,branch.length='none')
+d1 <- fortify(spe_tree,branch.length='none')
+d2 <- fortify(mf_tree,branch.length='none')
 ```
 
 ```{r}
@@ -50,7 +50,7 @@ dd = bind_rows(d1,d2) %>%
 
 
 ```{r}
-ggtree(mf_tree,branch.length='none') + 
+ggtree(spe_tree,branch.length='none') + 
   geom_tree() + 
   geom_tree(data = d2)+
   geom_tiplab(data=d1, size = 2) +
