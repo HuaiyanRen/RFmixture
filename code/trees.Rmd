@@ -37,7 +37,7 @@ q10_tree <- root(q10_tree, outgroup = "DANIO_RER", edgelabel = TRUE)
 
 ```{r}
 d1 <- fortify(spe_tree,branch.length='none')
-d2 <- fortify(mf_tree,branch.length='none')
+d2 <- fortify(q10_tree,branch.length='none')
 ```
 
 ```{r}
