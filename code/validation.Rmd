@@ -115,7 +115,16 @@ weights_plot$index <- factor(weights_plot$index, levels = c('w1', 'w2', 'w3', 'w
 ggplot(weights_plot, aes(x = weight))+
   geom_density()+
   facet_wrap(~index)+
-  geom_vline(xintercept = 0.1, color = 'red')
+  geom_vline(data = weights_plot %>% filter(weights_plot$index == 'w1'), aes(xintercept = 0.0887), color = 'red')+
+  geom_vline(data = weights_plot %>% filter(weights_plot$index == 'w2'), aes(xintercept = 0.0471), color = 'red')+
+  geom_vline(data = weights_plot %>% filter(weights_plot$index == 'w3'), aes(xintercept = 0.0796), color = 'red')+
+  geom_vline(data = weights_plot %>% filter(weights_plot$index == 'w4'), aes(xintercept = 0.0914), color = 'red')+
+  geom_vline(data = weights_plot %>% filter(weights_plot$index == 'w5'), aes(xintercept = 0.1133), color = 'red')+
+  geom_vline(data = weights_plot %>% filter(weights_plot$index == 'w6'), aes(xintercept = 0.0860), color = 'red')+
+  geom_vline(data = weights_plot %>% filter(weights_plot$index == 'w7'), aes(xintercept = 0.1725), color = 'red')+
+  geom_vline(data = weights_plot %>% filter(weights_plot$index == 'w8'), aes(xintercept = 0.0671), color = 'red')+
+  geom_vline(data = weights_plot %>% filter(weights_plot$index == 'w9'), aes(xintercept = 0.1205), color = 'red')+
+  geom_vline(data = weights_plot %>% filter(weights_plot$index == 'w10'), aes(xintercept = 0.1348), color = 'red')
 ```
 
 
