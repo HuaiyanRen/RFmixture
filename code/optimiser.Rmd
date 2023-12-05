@@ -1,0 +1,24 @@
+---
+title: "Untitled"
+author: "u7151703"
+date: "2023-12-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+ggplot(optimiser,aes(x = as.factor(classes),y = abs(lnl)))+
+  geom_jitter(width = 0.15)+
+  scale_y_log10()
+```
+
+
