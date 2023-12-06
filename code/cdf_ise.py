@@ -136,8 +136,8 @@ with open('ise.csv','w+',newline='') as csvf:
     csv_write.writerow(['model1', 'model2',  'ise_r', 'ise_f'])
                        
         
-file_list = ['l2t50_1_q4_1', 'l2t50_1_q4_2', 'l2t50_1_q4_3', 'l2t50_1_q4_4', 'l2t50_1_q4_5',
-             'l2t50_1_q4_6', 'l2t50_1_q4_7', 'l2t50_1_q4_8', 'l2t50_1_q4_9', 'l2t50_1_q4_10', ]
+file_list = ['l2t50_1_q5_1', 'l2t50_1_q5_2', 'l2t50_1_q5_3', 'l2t50_1_q5_4', 'l2t50_1_q5_5',
+             'l2t50_1_q5_6', 'l2t50_1_q5_7', 'l2t50_1_q5_8', 'l2t50_1_q5_9', 'l2t50_1_q5_10', ]
 for i in range(0, len(file_list)):
     for j in range(i, len(file_list)):
         file1 = file_list[i]  
