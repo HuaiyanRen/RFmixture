@@ -21,4 +21,19 @@ ggplot(optimiser,aes(x = as.factor(classes),y = abs(lnl)))+
   scale_y_log10()
 ```
 
+```{r}
+ise_q4$model1 <- factor(ise_q4$model1, levels = c('l2t50_1_q4_1', 'l2t50_1_q4_2', 'l2t50_1_q4_3', 'l2t50_1_q4_4', 'l2t50_1_q4_5', 'l2t50_1_q4_6', 'l2t50_1_q4_7', 'l2t50_1_q4_8', 'l2t50_1_q4_9', 'l2t50_1_q4_10'))
+ise_q4$model2 <- factor(ise_q4$model2, levels = c('l2t50_1_q4_10', 'l2t50_1_q4_9', 'l2t50_1_q4_8', 'l2t50_1_q4_7', 'l2t50_1_q4_6', 'l2t50_1_q4_5', 'l2t50_1_q4_4', 'l2t50_1_q4_3', 'l2t50_1_q4_2', 'l2t50_1_q4_1'))
+
+ggplot(ise_q4, aes(x = model1, y = model2, fill = ise_r))+
+  geom_tile(color = "white", size = 2) +
+  geom_text(aes(label = round(ise_r,3), vjust = 0.8),size = 3) + 
+  scale_fill_gradient(low = "white", high = "red") +
+  labs(title = "Paired Item Scores Q4") +
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+
 
