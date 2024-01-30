@@ -65,3 +65,15 @@ ggplot(optimiser %>% filter(classes == 5), aes(x = rep, y = abs(lnl)))+
   scale_x_continuous(breaks = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), labels = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
 ```
 
+```{r}
+ggplot(bfgs_em,aes(x = type,y = abs(lnl)))+
+  geom_jitter(width = 0.15)+
+  scale_y_log10()
+```
+
+```{r}
+ggplot(bfgs_em,aes(x = type,y = time/3600))+
+  geom_jitter(width = 0.15)+
+  labs(y = 'CPU hour')
+```
+
