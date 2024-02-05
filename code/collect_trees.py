@@ -27,13 +27,13 @@ treefile_list = []
 n = 0
 for file in os.listdir(tree_path):
     if file.endswith('.treefile'):
-        file_order = int(file.split('_')[0])
-        if file_order in list1:
-            treefile_list.append(file)
-            n = n + 1
-            print(file)
+        #file_order = int(file.split('_')[0])
+        #if file_order in list1:
+        treefile_list.append(file)
+        n = n + 1
+        #print(file)
 print(n)
-#treefile_list = [file for file in os.listdir(folder_path) if file.endswith('.treefile')]
+
 
 with open(output_file, 'w') as output_file:
     for treefile in treefile_list:
