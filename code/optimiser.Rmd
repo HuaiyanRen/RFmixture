@@ -77,3 +77,15 @@ ggplot(bfgs_em,aes(x = type,y = time/3600))+
   labs(y = 'CPU hour')
 ```
 
+```{r}
+c3data_ini0 <- c3data %>% filter(initialisation == 0)
+c3data_ini0 <- c3data_ini0 %>%
+  mutate(category = paste(type, optimiser, sep = "_"))
+```
+
+```{r}
+ggplot(c3data_ini0, aes(x = category,y = abs(lnl)))+
+  geom_jitter(width = 0.15)+
+  facet_wrap(~data, scales = "free_y")
+  scale_y_log10()
+```
