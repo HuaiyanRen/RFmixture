@@ -78,6 +78,13 @@ ggplot(bfgs_em,aes(x = type,y = time/3600))+
 ```
 
 ```{r}
+library(readxl)
+c3data <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal_rep/likelihood.xlsx")
+View(c3data)
+```
+
+
+```{r}
 c3data_ini0 <- c3data %>% filter(initialisation == 0)
 c3data_ini0 <- c3data_ini0 %>%
   mutate(category = paste(type, optimiser, sep = "_"))
@@ -89,3 +96,19 @@ ggplot(c3data_ini0, aes(x = category,y = abs(lnl)))+
   facet_wrap(~data, scales = "free_y")
   scale_y_log10()
 ```
+
+
+
+```{r}
+c3data_q <- c3data %>% filter(type == 'q')
+c3data_q <- c3data_q %>%
+  mutate(category = paste( optimiser,initialisation, sep = "_"))
+```
+
+```{r}
+ggplot(c3data_q, aes(x = category,y = abs(lnl)))+
+  geom_jitter(width = 0.15)+
+  facet_wrap(~data, scales = "free_y")
+  scale_y_log10()
+```
+
