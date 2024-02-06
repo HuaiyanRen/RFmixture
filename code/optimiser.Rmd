@@ -107,7 +107,7 @@ c3data_q <- c3data_q %>%
 
 ```{r}
 ggplot(c3data_q, aes(x = category,y = abs(lnl)))+
-  geom_jitter(width = 0.15)+
+  geom_jitter(width = 0.15, size = 1)+
   facet_wrap(~data, scales = "free_y")
   scale_y_log10()
 ```
