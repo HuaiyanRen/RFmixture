@@ -49,7 +49,7 @@ def control(start, end, pool_num, method, decrease):
     
     para_list = []
     for j in range(int(start) - 1, int(end)):
-        if j + 1 in list1:
+#        if j + 1 in list1:
             iqtree_file = 'mix_bic' + part_list[j] + '.iqtree'
             if not os.path.exists(iqtree_file):
                 para_list.append((part_list[j],method, decrease))
