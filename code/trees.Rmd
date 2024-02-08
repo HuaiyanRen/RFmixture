@@ -24,31 +24,37 @@ library(treeio)
 
 ```{r}
 spe_tree <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/aa_t90_unrooted.treefile")
+spe_tree_gcf <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/true_gcf.cf.tree")
 mf_tree <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/ast_bic_unroot.treefile")
 mf_1840 <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/mf_1840loci_gcf.cf.tree")
 q10_tree <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/ast_q10_unroot.treefile")
 vali1 <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/vali1.treefile")
 vali2 <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/vali2.treefile")
 mf_vali1 <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/vali_mf_gcf.cf.tree")
+c1 <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/1classbb.treefile")
 c3 <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/class3.treefile")
+c1_gcf <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/c1c3_gcf.cf.tree")
 ```
 
 
 ```{r}
 spe_tree <- root(spe_tree, outgroup = "DANIO_RER", edgelabel = TRUE)
+spe_tree_gcf <- root(spe_tree_gcf, outgroup = "DANIO_RER", edgelabel = TRUE)
 mf_tree <- root(mf_tree, outgroup = "DANIO_RER", edgelabel = TRUE)
 mf_1840 <- root(mf_1840, outgroup = "DANIO_RER", edgelabel = TRUE)
 q10_tree <- root(q10_tree, outgroup = "DANIO_RER", edgelabel = TRUE)
 vali1 <- root(vali1, outgroup = "DANIO_RER", edgelabel = TRUE)
 vali2 <- root(vali2, outgroup = "DANIO_RER", edgelabel = TRUE)
 mf_vali1 <- root(mf_vali1, outgroup = "DANIO_RER", edgelabel = TRUE)
+c1 <- root(c1, outgroup = "DANIO_RER", edgelabel = TRUE)
+c1_gcf <- root(c1_gcf, outgroup = "DANIO_RER", edgelabel = TRUE)
 c3 <- root(c3, outgroup = "DANIO_RER", edgelabel = TRUE)
 ```
 
 
 ```{r}
-d1 <- fortify(spe_tree,branch.length='none')
-d2 <- fortify(mf_1840,branch.length='none')
+d1 <- fortify(spe_tree_gcf,branch.length='none')
+d2 <- fortify(c1_gcf,branch.length='none')
 ```
 
 ```{r}
@@ -61,15 +67,15 @@ dd = bind_rows(d1,d2) %>%
 
 
 ```{r}
-ggtree(spe_tree,branch.length='none') + 
+ggtree(spe_tree_gcf,branch.length='none') + 
   geom_tree() + 
   geom_tree(data = d2)+
   geom_tiplab(data=d1, size = 2) +
   #geom_tiplab(data=d2, size = 1) +
   geom_nodelab(size = 2, nudge_x = -0.5, nudge_y = 0.5)+
   geom_nodelab(data=d2, size = 2, nudge_x = 0.5, nudge_y = 0.5 )+
-  geom_line(aes(x, y, group=label), data=dd[c(1:180),], alpha=0.3)
-  #geom_line(aes(x, y, group=label), data=dd[c(1:90,179:268),], alpha=0.3)
+  #geom_line(aes(x, y, group=label), data=dd[c(1:180),], alpha=0.3)
+  geom_line(aes(x, y, group=label), data=dd[c(1:90,179:268),], alpha=0.3)
 ```
 
 
