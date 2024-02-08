@@ -26,7 +26,7 @@ library(treeio)
 spe_tree <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/aa_t90_unrooted.treefile")
 spe_tree_gcf <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/true_gcf.cf.tree")
 mf_tree <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/ast_bic_unroot.treefile")
-mf_1840 <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/mf_1840loci_gcf.cf.tree")
+mf2381 <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/mf_2381_gcf.cf.tree")
 q10_tree <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/ast_q10_unroot.treefile")
 vali1 <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/vali1.treefile")
 vali2 <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal/trees/vali2.treefile")
@@ -41,7 +41,7 @@ c1_gcf <- ape::read.tree("C:/Users/u7151703/Desktop/research/RFmixture/data/mamm
 spe_tree <- root(spe_tree, outgroup = "DANIO_RER", edgelabel = TRUE)
 spe_tree_gcf <- root(spe_tree_gcf, outgroup = "DANIO_RER", edgelabel = TRUE)
 mf_tree <- root(mf_tree, outgroup = "DANIO_RER", edgelabel = TRUE)
-mf_1840 <- root(mf_1840, outgroup = "DANIO_RER", edgelabel = TRUE)
+mf2381 <- root(mf2381, outgroup = "DANIO_RER", edgelabel = TRUE)
 q10_tree <- root(q10_tree, outgroup = "DANIO_RER", edgelabel = TRUE)
 vali1 <- root(vali1, outgroup = "DANIO_RER", edgelabel = TRUE)
 vali2 <- root(vali2, outgroup = "DANIO_RER", edgelabel = TRUE)
@@ -54,7 +54,7 @@ c3 <- root(c3, outgroup = "DANIO_RER", edgelabel = TRUE)
 
 ```{r}
 d1 <- fortify(spe_tree_gcf,branch.length='none')
-d2 <- fortify(c1_gcf,branch.length='none')
+d2 <- fortify(mf2381,branch.length='none')
 ```
 
 ```{r}
