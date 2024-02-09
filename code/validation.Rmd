@@ -16,15 +16,23 @@ library(tidyverse)
 ```
 
 ```{r}
-plot_data_inc2 <- mf_results_inc_plant_l10 %>%
+plot_data_inc2 <- mf_results_dec2 %>%
   pivot_longer(cols = -partition,
                names_to = "model",
                values_to = "order")
 ```
 
 ```{r}
-ggplot(plot_data_inc2,aes(x = model))+
-  geom_bar(aes(fill = as.character(order)))
+plot_data_inc2$model <- factor(plot_data_inc2$model, 
+                               levels = c('d1_100loci','d2_100loci',
+                                          'd1_200loci','d2_200loci',
+                                          'd1_500loci','d2_500loci',
+                                          'd1_1000loci','d2_1000loci',
+                                          'q1'))
+ggplot(plot_data_inc2 %>% filter(order == 1),aes(x = model))+
+  geom_bar(fill = 'red')+
+  labs(x = 'training data', y = 'count')+
+  theme_bw()
 ```
 
 ```{r}
@@ -58,13 +66,13 @@ ggplot(mix_q10_long,aes(x= item, fill = value))+
 
 ```{r}
 mix_q10_time <- mix_vs_q10 %>% slice(101:n()) %>%
-  pivot_longer(cols = c('time_q10', 'time_mix'), names_to = "item") %>%
-  arrange("item") %>%
+  pivot_longer(cols = c('time_q10', 'time_mix'), names_to = "method") %>%
+  arrange("method") %>%
   group_by(row_number()) %>%
   summarise_all(~first(.), .groups = 'drop')
 
-mix_q10_time$item[which(mix_q10_time$item == 'time_q10')] <- 'Q10'
-mix_q10_time$item[which(mix_q10_time$item == 'time_mix')] <- 'MixtureFinder'
+mix_q10_time$method[which(mix_q10_time$method == 'time_q10')] <- 'Q10(consencus)'
+mix_q10_time$method[which(mix_q10_time$method == 'time_mix')] <- 'MixtureFinder'
 ```
 
 ```{r}
@@ -74,9 +82,9 @@ ggplot(mix_q10_time, aes(x= length, y = value/3600, color = item))+
 ```
 
 ```{r}
-ggplot(mix_q10_time, aes(x= classes,y = value/3600,color= item))+
-  geom_jitter(data = mix_q10_time %>% filter(item == 'Q10'),aes(x = classes-0.2, y = value/3600),width =0.15)+
-  geom_jitter(data = mix_q10_time %>% filter(item == 'MixtureFinder'),aes(x = classes+0.2, y = value/3600),width =0.15)+
+ggplot(mix_q10_time, aes(x= classes,y = value/3600,color= method))+
+  geom_jitter(data = mix_q10_time %>% filter(method == 'Q10(consencus)'),aes(x = classes-0.2, y = value/3600),width =0.15)+
+  geom_jitter(data = mix_q10_time %>% filter(method == 'MixtureFinder'),aes(x = classes+0.2, y = value/3600),width =0.15)+
   scale_x_continuous(breaks = c(2,3,4,5,6,7,8,9))+
   labs(y = 'time(h)')+
   theme_bw()
