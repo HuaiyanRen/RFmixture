@@ -18,7 +18,9 @@ library(tidyverse)
 ```{r}
 ggplot(optimiser,aes(x = as.factor(classes),y = abs(lnl)))+
   geom_jitter(width = 0.15)+
-  scale_y_log10()
+  scale_y_log10()+
+  labs(y = 'absolute log likelihood', x = 'number of classes')+
+  theme_minimal()
 ```
 
 ```{r}
@@ -44,14 +46,14 @@ ggplot(optimiser %>% filter(classes == 4), aes(x = rep, y = abs(lnl)))+
 ```
 
 ```{r}
-ise_q5$model1 <- factor(ise_q5$model1, levels = c('l2t50_1_q5_1', 'l2t50_1_q5_2', 'l2t50_1_q5_3', 'l2t50_1_q5_4', 'l2t50_1_q5_5', 'l2t50_1_q5_6', 'l2t50_1_q5_7', 'l2t50_1_q5_8', 'l2t50_1_q5_9', 'l2t50_1_q5_10'))
-ise_q5$model2 <- factor(ise_q5$model2, levels = c('l2t50_1_q5_10', 'l2t50_1_q5_9', 'l2t50_1_q5_8', 'l2t50_1_q5_7', 'l2t50_1_q5_6', 'l2t50_1_q5_5', 'l2t50_1_q5_4', 'l2t50_1_q5_3', 'l2t50_1_q5_2', 'l2t50_1_q5_1'))
+ise_q5$model1 <- factor(ise_q5$model1, levels = c('rep1', 'rep2', 'rep3', 'rep4', 'rep5', 'rep6', 'rep7', 'rep8', 'rep9', 'rep10'))
+ise_q5$model2 <- factor(ise_q5$model2, levels = c('rep10', 'rep9', 'rep8', 'rep7', 'rep6', 'rep5', 'rep4', 'rep3', 'rep2', 'rep1'))
 
 ggplot(ise_q5, aes(x = model1, y = model2, fill = ise_r))+
   geom_tile(color = "white", size = 2) +
   geom_text(aes(label = round(ise_r,3), vjust = 0.8),size = 3) + 
   scale_fill_gradient(low = "white", high = "red") +
-  labs(title = "Paired ISE of ten Q5 replicates") +
+  labs(title = "B: Paired ISE of ten Q5 replicates", fill = 'ISE') +
   theme_minimal()+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
@@ -61,7 +63,7 @@ ggplot(optimiser %>% filter(classes == 5), aes(x = rep, y = abs(lnl)))+
   geom_point()+
   theme_minimal()+
   scale_y_log10()+
-  labs(title = "loglikelihood of ten Q5 replicates") +
+  labs(title = "A: loglikelihood of ten Q5 replicates", y = 'absolute log likelihood', x = 'number of classes') +
   scale_x_continuous(breaks = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), labels = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
 ```
 
@@ -85,16 +87,20 @@ View(c3data)
 
 
 ```{r}
-c3data_ini0 <- c3data %>% filter(initialisation == 0)
+c3data_ini0 <- c3data %>% filter(initialisation == 0 & type != 'f')
 c3data_ini0 <- c3data_ini0 %>%
-  mutate(category = paste(type, optimiser, sep = "_"))
+  mutate(category = paste(type, optimiser, sep = "_")) %>%
+  mutate(data_name = paste0("data_", data))
+
 ```
 
 ```{r}
 ggplot(c3data_ini0, aes(x = category,y = abs(lnl)))+
   geom_jitter(width = 0.15)+
-  facet_wrap(~data, scales = "free_y")
-  scale_y_log10()
+  facet_wrap(~data_name, scales = "free_y")+
+  labs(y = 'absolute log likelihood')+
+  #scale_y_log10()+
+  theme_minimal()
 ```
 
 
@@ -102,13 +108,16 @@ ggplot(c3data_ini0, aes(x = category,y = abs(lnl)))+
 ```{r}
 c3data_q <- c3data %>% filter(type == 'q')
 c3data_q <- c3data_q %>%
-  mutate(category = paste( optimiser,initialisation, sep = "_"))
+  mutate(category = paste( optimiser,initialisation, sep = "_")) %>%
+  mutate(data_name = paste0("data_", data))
 ```
 
 ```{r}
 ggplot(c3data_q, aes(x = category,y = abs(lnl)))+
   geom_jitter(width = 0.15, size = 1)+
-  facet_wrap(~data, scales = "free_y")
-  scale_y_log10()
+  facet_wrap(~data_name, scales = "free_y")+
+  labs(y = 'absolute log likelihood')+
+  #scale_y_log10()+
+  theme_minimal()
 ```
 
