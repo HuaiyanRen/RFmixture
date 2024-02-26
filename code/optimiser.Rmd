@@ -121,3 +121,67 @@ ggplot(c3data_q, aes(x = category,y = abs(lnl)))+
   theme_minimal()
 ```
 
+```{r}
+c3data_f <- c3data %>% filter(type == 'f')
+c3data_f <- c3data_f %>%
+  mutate(category = paste( optimiser,initialisation, sep = "_")) %>%
+  mutate(data_name = paste0("data_", data))
+```
+
+```{r}
+ggplot(c3data_f, aes(x = category,y = abs(lnl)))+
+  geom_jitter(width = 0.15, size = 1)+
+  facet_wrap(~data_name, scales = "free_y")+
+  labs(y = 'absolute log likelihood')+
+  #scale_y_log10()+
+  theme_minimal()
+```
+
+# c5
+
+```{r}
+library(readxl)
+c5data <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal_rep/likelihood_c5.xlsx")
+View(c5data)
+```
+
+```{r}
+c5data_q <- c5data %>% filter(type == 'f' | optimiser == 'bfgs' | initialisation != 0)
+c5data_q <- c5data_q %>%
+  mutate(category = paste( optimiser,initialisation, sep = "_")) %>%
+  mutate(data_name = paste0("data_", data))
+```
+
+```{r}
+ggplot(c5data_q, aes(x = category,y = abs(lnl)))+
+  geom_jitter(width = 0.15, size = 1)+
+  facet_wrap(~data_name, scales = "free_y")+
+  labs(y = 'absolute log likelihood')+
+  #scale_y_log10()+
+  theme_minimal()
+```
+
+# c7
+
+```{r}
+library(readxl)
+c7data <- read_excel("C:/Users/u7151703/Desktop/research/RFmixture/data/mammal_rep/likelihood_c7.xlsx")
+View(c7data)
+```
+
+```{r}
+c7data_q <- c7data %>% filter(type == 'f' | optimiser == 'bfgs' | initialisation != 0)
+c7data_q <- c7data_q %>%
+  mutate(category = paste( optimiser,initialisation, sep = "_")) %>%
+  mutate(data_name = paste0("data_", data))
+```
+
+```{r}
+ggplot(c7data_q, aes(x = category,y = abs(lnl)))+
+  geom_jitter(width = 0.15, size = 1)+
+  facet_wrap(~data_name, scales = "free_y")+
+  labs(y = 'absolute log likelihood')+
+  #scale_y_log10()+
+  theme_minimal()
+```
+
