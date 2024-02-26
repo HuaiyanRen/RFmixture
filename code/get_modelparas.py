@@ -1,10 +1,10 @@
 import pandas as pd
 import os
 
-classes = [5]
+classes = [7]
 org = ['bfgs']
 initi = [1,2]
-dataset = [1,2]
+dataset = [1]
 rep = [1,2,3,4,5]
 
 data_list = []
