@@ -145,7 +145,7 @@ ggplot(data = df2,aes(x = PC1,y = PC2,color = result_q10$data))+
 ```
 
 ```{r}
-para <- para_c7
+para <- para_c3
 para$AC_l <- log(para$AC,base = 10)
 para$AG_l <- log(para$AG,base = 10)
 para$AT_l <- log(para$AT,base = 10)
@@ -167,6 +167,23 @@ summ1 <- summary(pca1)
 xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
 ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
 ```
+
+```{r}
+df1$data <- para_sub$data
+df1$weight <- para_sub$weight
+df1$class <- para_sub$class
+#df1$data <- factor(df1$data, levels = c('d1_1000loci','d2_1000loci','d1_500loci','d2_500loci','d1_200loci','d2_200loci','d1_100loci','d2_100loci'))
+
+ggplot(data = df1  ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~data,ncol = 5)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()
+```
+
 
 ```{r}
 df1$data <- para_sub$data
