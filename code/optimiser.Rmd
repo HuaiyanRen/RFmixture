@@ -106,7 +106,7 @@ ggplot(c3data_ini0, aes(x = category,y = abs(lnl)))+
 
 
 ```{r}
-c3data_q <- c3data %>% filter(type == 'q')
+c3data_q <- c3data %>% filter(type == 'q' & optimiser == 'bfgs')
 c3data_q <- c3data_q %>%
   mutate(category = paste( optimiser,initialisation, sep = "_")) %>%
   mutate(data_name = paste0("data_", data))
