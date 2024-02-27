@@ -146,7 +146,7 @@ View(c5data)
 ```
 
 ```{r}
-c5data_q <- c5data %>% filter(type == 'f' | optimiser == 'bfgs' | initialisation != 0)
+c5data_q <- c5data %>% filter(type == 'f' | optimiser == 'bfgs')
 c5data_q <- c5data_q %>%
   mutate(category = paste( optimiser,initialisation, sep = "_")) %>%
   mutate(data_name = paste0("data_", data))
@@ -170,7 +170,7 @@ View(c7data)
 ```
 
 ```{r}
-c7data_q <- c7data %>% filter(type == 'f' | optimiser == 'bfgs' | initialisation != 0)
+c7data_q <- c7data %>% filter(type == 'f' | optimiser == 'bfgs')
 c7data_q <- c7data_q %>%
   mutate(category = paste( optimiser,initialisation, sep = "_")) %>%
   mutate(data_name = paste0("data_", data))
