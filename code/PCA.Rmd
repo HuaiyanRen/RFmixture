@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(tidyverse)
+library(patchwork)
 library(sem)
 library(ggfortify)
 library(devtools)
@@ -145,7 +146,7 @@ ggplot(data = df2,aes(x = PC1,y = PC2,color = result_q10$data))+
 ```
 
 ```{r}
-para <- para_c3
+para <- para_c7
 para$AC_l <- log(para$AC,base = 10)
 para$AG_l <- log(para$AG,base = 10)
 para$AT_l <- log(para$AT,base = 10)
@@ -174,14 +175,27 @@ df1$weight <- para_sub$weight
 df1$class <- para_sub$class
 #df1$data <- factor(df1$data, levels = c('d1_1000loci','d2_1000loci','d1_500loci','d2_500loci','d1_200loci','d2_200loci','d1_100loci','d2_100loci'))
 
-ggplot(data = df1  ,aes(x = PC1,y = PC2))+
+p1 = ggplot(data = df1[c(1:15,31:45,61:75),]  ,aes(x = PC1,y = PC2))+
   geom_point(aes(size = weight), alpha = 0.2)+
   scale_size_continuous(range = c(1, 5)) +
   labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
   guides(fill = "none")+
   facet_wrap(~data,ncol = 5)+
   #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
-  theme_bw()
+  theme_bw()+
+  ggtitle("data 1") + theme(plot.title = element_text(hjust = 0.5))
+
+p2 = ggplot(data = df1[c(16:30,46:60,76:90),]  ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~data,ncol = 5)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  ggtitle("data 2") + theme(plot.title = element_text(hjust = 0.5))
+
+(p1) / (p2) + plot_layout(guides = "collect")
 ```
 
 
@@ -191,14 +205,27 @@ df1$weight <- para_sub$weight
 df1$class <- para_sub$class
 #df1$data <- factor(df1$data, levels = c('d1_1000loci','d2_1000loci','d1_500loci','d2_500loci','d1_200loci','d2_200loci','d1_100loci','d2_100loci'))
 
-ggplot(data = df1  ,aes(x = PC1,y = PC2))+
+p1 = ggplot(data = df1[c(1:75),]  ,aes(x = PC1,y = PC2))+
   geom_point(aes(size = weight), alpha = 0.2)+
   scale_size_continuous(range = c(1, 5)) +
   labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
   guides(fill = "none")+
   facet_wrap(~data,ncol = 5)+
   #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
-  theme_bw()
+  theme_bw()+
+  ggtitle("data 1") + theme(plot.title = element_text(hjust = 0.5))
+
+p2 = ggplot(data = df1[c(76:125),]  ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~data,ncol = 5)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  ggtitle("data 2") + theme(plot.title = element_text(hjust = 0.5))
+
+(p1) / (p2) + plot_layout(guides = "collect")
 ```
 
 ```{r}
@@ -207,12 +234,29 @@ df1$weight <- para_sub$weight
 df1$class <- para_sub$class
 #df1$data <- factor(df1$data, levels = c('d1_1000loci','d2_1000loci','d1_500loci','d2_500loci','d1_200loci','d2_200loci','d1_100loci','d2_100loci'))
 
-ggplot(data = df1  ,aes(x = PC1,y = PC2))+
+p1 = ggplot(data = df1[c(1:35,71:105),]  ,aes(x = PC1,y = PC2))+
   geom_point(aes(size = weight), alpha = 0.2)+
   scale_size_continuous(range = c(1, 5)) +
   labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
   guides(fill = "none")+
+  xlim(-3,3)+
+  ylim(-5,3)+
   facet_wrap(~data,ncol = 5)+
   #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
-  theme_bw()
+  theme_bw()+
+  ggtitle("data 1") + theme(plot.title = element_text(hjust = 0.5))
+
+p2 = ggplot(data = df1[c(36:70),]  ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  xlim(-3,3)+
+  ylim(-5,3)+
+  facet_wrap(~data,ncol = 5)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  ggtitle("data 2") + theme(plot.title = element_text(hjust = 0.5))
+
+(p1) / (p2) + plot_layout(guides = "collect")
 ```
