@@ -3,8 +3,8 @@ import os
 
 classes = [7]
 org = ['bfgs']
-initi = [1,2]
-dataset = [1]
+initi = [0,1,2]
+dataset = [1,2]
 rep = [1,2,3,4,5]
 
 data_list = []
