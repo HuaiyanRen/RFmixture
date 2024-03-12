@@ -146,7 +146,7 @@ ggplot(data = df2,aes(x = PC1,y = PC2,color = result_q10$data))+
 ```
 
 ```{r}
-para <- para_c7
+para <- para_c3
 para$AC_l <- log(para$AC,base = 10)
 para$AG_l <- log(para$AG,base = 10)
 para$AT_l <- log(para$AT,base = 10)
@@ -159,7 +159,7 @@ para_sub <- para #%>% filter(data %in% c('l10t90_1', 'l5t90_1', 'l2t90_1', 'l1t9
 #q10_sub <- result_q10
 #q10_sub <- result_q10 %>% filter(data %in% c('l10t90_1','l10t90_2','l2t90_1','l2t90_2'))
 
-pca1 <- prcomp(para_sub[,c(14:18)],center = FALSE, scale. = FALSE)
+pca1 <- prcomp(para_sub[,c(14:19)],center = FALSE, scale. = FALSE)
 
 df1 <- pca1$x 
 df1 <- as.data.frame(df1) 
@@ -175,9 +175,11 @@ df1$weight <- para_sub$weight
 df1$class <- para_sub$class
 #df1$data <- factor(df1$data, levels = c('d1_1000loci','d2_1000loci','d1_500loci','d2_500loci','d1_200loci','d2_200loci','d1_100loci','d2_100loci'))
 
-p1 = ggplot(data = df1[c(1:15,31:45,61:75),]  ,aes(x = PC1,y = PC2))+
+p1 = ggplot(data = df1[c(1:15,31:45,61:75,91:105),]  ,aes(x = PC1,y = PC2))+
   geom_point(aes(size = weight), alpha = 0.2)+
   scale_size_continuous(range = c(1, 5)) +
+  xlim(-1.5,0)+
+  ylim(-1.5,1)+
   labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
   guides(fill = "none")+
   facet_wrap(~data,ncol = 5)+
@@ -185,9 +187,11 @@ p1 = ggplot(data = df1[c(1:15,31:45,61:75),]  ,aes(x = PC1,y = PC2))+
   theme_bw()+
   ggtitle("data 1") + theme(plot.title = element_text(hjust = 0.5))
 
-p2 = ggplot(data = df1[c(16:30,46:60,76:90),]  ,aes(x = PC1,y = PC2))+
+p2 = ggplot(data = df1[c(16:30,46:60,76:90,106:120),]  ,aes(x = PC1,y = PC2))+
   geom_point(aes(size = weight), alpha = 0.2)+
   scale_size_continuous(range = c(1, 5)) +
+  xlim(-1.5,0)+
+  ylim(-1.5,1)+
   labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
   guides(fill = "none")+
   facet_wrap(~data,ncol = 5)+
@@ -208,6 +212,8 @@ df1$class <- para_sub$class
 p1 = ggplot(data = df1[c(1:75),]  ,aes(x = PC1,y = PC2))+
   geom_point(aes(size = weight), alpha = 0.2)+
   scale_size_continuous(range = c(1, 5)) +
+  xlim(-1.5,0)+
+  ylim(-1,1)+
   labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
   guides(fill = "none")+
   facet_wrap(~data,ncol = 5)+
@@ -218,6 +224,8 @@ p1 = ggplot(data = df1[c(1:75),]  ,aes(x = PC1,y = PC2))+
 p2 = ggplot(data = df1[c(76:125),]  ,aes(x = PC1,y = PC2))+
   geom_point(aes(size = weight), alpha = 0.2)+
   scale_size_continuous(range = c(1, 5)) +
+  xlim(-1.5,0)+
+  ylim(-1,1)+
   labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
   guides(fill = "none")+
   facet_wrap(~data,ncol = 5)+
