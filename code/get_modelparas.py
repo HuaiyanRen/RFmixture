@@ -60,7 +60,7 @@ def normal_q(r,f):
 
 
 for iqfile in data_list:
-    file_name = 'r'+str(iqfile[0]) + '_' + iqfile[1] + str(iqfile[2]) + '_d' + str(iqfile[3]) + '_rep' + str(iqfile[4])
+    file_name = 'f'+str(iqfile[0]) + '_' + iqfile[1] + str(iqfile[2]) + '_d' + str(iqfile[3]) + '_rep' + str(iqfile[4])
     path = r'C:\Users\u7151703\Desktop\research\RFmixture\data\mammal_rep'
         
     iqtree_file = os.path.join(path, file_name + '.iqtree')
